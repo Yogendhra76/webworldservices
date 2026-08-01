@@ -1,0 +1,1267 @@
+/* ============================================================
+   WEB WORLD SERVICES — MAIN STYLESHEET
+   ------------------------------------------------------------
+   How this file is organized (use Ctrl+F to jump to a section):
+   1. Variables (colors, fonts)  -> change the whole site's look here
+   2. Reset & base styles
+   3. Reusable layout helpers (.container, .section, titles)
+   4. Buttons
+   5. Header & navigation
+   6. Hero section
+   7. Feature / value cards
+   8. Stats band
+   9. Orbit animation (the social media planets)
+   10. Services grid
+   11. About page pieces
+   12. Contact page pieces
+   13. Admin page pieces
+   14. Footer
+   15. Scroll-reveal animation
+   16. Responsive (mobile) rules
+   ============================================================ */
+
+
+/* ----------------------------------------------------------
+   1. VARIABLES — edit these to re-theme the entire website
+   ---------------------------------------------------------- */
+:root {
+  /* Brand colors (red + blue theme) */
+  --primary-blue: #1656d9;
+  --primary-blue-dark: #0a1f4d;
+  --primary-blue-light: #4d84ff;
+  --primary-red: #e0223a;
+  --primary-red-dark: #7a1128;
+  --primary-red-light: #ff6b6b;
+
+  /* Neutrals */
+  --white: #ffffff;
+  --light-bg: #f4f7fc;
+  --text-dark: #121c33;
+  --text-gray: #5c6784;
+  --border-color: #e2e7f1;
+
+  /* Gradients built from the colors above */
+  --gradient-primary: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-red) 100%);
+  --gradient-dark: linear-gradient(135deg, #0a1f4d 0%, #1a0d2e 55%, #7a1128 100%);
+
+  /* Fonts */
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 10px rgba(10, 31, 77, 0.08);
+  --shadow-md: 0 10px 28px rgba(10, 31, 77, 0.12);
+  --shadow-lg: 0 20px 45px rgba(10, 31, 77, 0.18);
+
+  /* Corner rounding */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+
+  /* Default transition used everywhere for hover/animation */
+  --transition: all 0.3s ease;
+}
+
+/* ----------------------------------------------------------
+   2. RESET & BASE STYLES
+   ---------------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  background: var(--white);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  line-height: 1.25;
+}
+
+/* Visible keyboard focus for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--primary-blue-light);
+  outline-offset: 2px;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ----------------------------------------------------------
+   3. LAYOUT HELPERS
+   ---------------------------------------------------------- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 90px 0;
+}
+
+.section-light {
+  background: var(--light-bg);
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  color: var(--text-dark);
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--text-gray);
+  font-size: 1.05rem;
+  max-width: 620px;
+  margin: 0 auto 56px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary-red);
+  margin-bottom: 12px;
+}
+
+
+/* ----------------------------------------------------------
+   4. BUTTONS
+   ---------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 34px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  color: var(--white);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+.btn-outline:hover {
+  background: var(--white);
+  color: var(--primary-blue-dark);
+  border-color: var(--white);
+}
+
+.btn-block {
+  width: 100%;
+  justify-content: center;
+}
+
+
+/* ----------------------------------------------------------
+   5. HEADER & NAVIGATION
+   ---------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.navbar {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+/* This is the logo image used in the header on every page.
+   See images/logo.png — replace that file with your real logo. */
+.logo-img {
+  height: 46px;
+  width: auto;
+  border-radius: 50%;
+}
+
+.logo-text {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  line-height: 1.1;
+}
+
+.logo-text span {
+  color: var(--primary-red);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 38px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 500;
+  font-size: 0.98rem;
+  position: relative;
+  padding: 6px 0;
+  transition: var(--transition);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.nav-links a.active {
+  color: var(--primary-blue);
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--text-dark);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+
+/* ----------------------------------------------------------
+   6. HERO SECTION
+   ---------------------------------------------------------- */
+.hero {
+  position: relative;
+  background: var(--gradient-dark);
+  padding: 150px 0 120px;
+  text-align: center;
+  color: var(--white);
+  overflow: hidden;
+}
+
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.35;
+  z-index: 0;
+}
+
+.hero::before {
+  width: 320px;
+  height: 320px;
+  background: var(--primary-blue);
+  top: -60px;
+  left: -60px;
+  animation: float-blob 9s ease-in-out infinite;
+}
+
+.hero::after {
+  width: 360px;
+  height: 360px;
+  background: var(--primary-red);
+  bottom: -90px;
+  right: -60px;
+  animation: float-blob 11s ease-in-out infinite reverse;
+}
+
+@keyframes float-blob {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, -25px); }
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  font-size: clamp(2.1rem, 5.2vw, 3.5rem);
+  font-weight: 700;
+  max-width: 800px;
+  margin: 0 auto 20px;
+}
+
+.hero h1 span {
+  color: var(--primary-red-light);
+}
+
+.hero p.lead {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+
+/* ----------------------------------------------------------
+   7. FEATURE / VALUE CARDS
+   ---------------------------------------------------------- */
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 36px 26px;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+
+.card-icon {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 22px;
+  font-size: 1.5rem;
+  color: var(--white);
+}
+
+.card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: var(--text-gray);
+  font-size: 0.96rem;
+}
+
+
+/* ----------------------------------------------------------
+   8. STATS BAND
+   ---------------------------------------------------------- */
+.stats-band {
+  background: var(--gradient-dark);
+  padding: 60px 0;
+}
+
+.stats-band .grid-4 {
+  gap: 20px;
+}
+
+.stat-item {
+  text-align: center;
+  color: var(--white);
+}
+
+.stat-item .stat-number {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  color: var(--primary-red-light);
+}
+
+.stat-item .stat-label {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 6px;
+}
+
+
+/* ----------------------------------------------------------
+   9. ORBIT ANIMATION — social platform icons orbiting a
+   central "network" globe, like planets around the sun.
+   ---------------------------------------------------------- */
+.orbit-section {
+  background: var(--gradient-dark);
+  color: var(--white);
+  text-align: center;
+  overflow: hidden;
+}
+
+.orbit-section .section-subtitle {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.orbit-container {
+  /* Sizes are set as variables so the whole animation can be
+     resized in one place (see the mobile media query at the
+     bottom of this file for the smaller version). */
+  --orbit-1: 190px;
+  --orbit-2: 270px;
+  --orbit-3: 350px;
+  --orbit-4: 430px;
+  --sun-size: 108px;
+  --planet-size: 46px;
+
+  position: relative;
+  width: var(--orbit-4);
+  height: var(--orbit-4);
+  margin: 40px auto 0;
+}
+
+/* The "sun" in the center */
+.sun {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--sun-size);
+  height: var(--sun-size);
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.1rem;
+  color: var(--white);
+  z-index: 10;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(22, 86, 217, 0.55), 0 0 55px rgba(224, 34, 58, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 45px rgba(22, 86, 217, 0.75), 0 0 75px rgba(224, 34, 58, 0.5);
+  }
+}
+
+/* Each dashed ring that a planet travels around */
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: orbit-spin linear infinite;
+}
+
+@keyframes orbit-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.orbit-1 { width: var(--orbit-1); height: var(--orbit-1); animation-duration: 10s; }
+.orbit-2 { width: var(--orbit-2); height: var(--orbit-2); animation-duration: 16s; }
+.orbit-3 { width: var(--orbit-3); height: var(--orbit-3); animation-duration: 22s; }
+.orbit-4 { width: var(--orbit-4); height: var(--orbit-4); animation-duration: 28s; }
+
+/* The icon riding on the ring. It counter-rotates at the SAME
+   speed as its parent orbit (animation-duration: inherit) so the
+   icon itself stays upright instead of spinning in place. */
+.planet {
+  position: absolute;
+  top: calc(var(--planet-size) / -2);
+  left: calc(50% - (var(--planet-size) / 2));
+  width: var(--planet-size);
+  height: var(--planet-size);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  color: var(--white);
+  box-shadow: var(--shadow-md);
+  animation: planet-counter-spin linear infinite;
+  animation-duration: inherit;
+}
+
+@keyframes planet-counter-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+.planet-facebook  { background: #1877f2; }
+.planet-instagram { background: radial-gradient(circle at 30% 30%, #fdf497, #fd5949 45%, #d6249f 70%, #285aeb); }
+.planet-whatsapp  { background: #25d366; }
+.planet-youtube   { background: #ff0000; }
+
+
+/* ----------------------------------------------------------
+   10. SERVICES GRID
+   ---------------------------------------------------------- */
+.service-card {
+  text-align: left;
+  padding: 34px 28px;
+}
+
+.service-card .card-icon {
+  margin: 0 0 20px;
+}
+
+
+/* ----------------------------------------------------------
+   11. PAGE BANNER (used at the top of Services/About/Contact)
+   ---------------------------------------------------------- */
+.page-banner {
+  background: var(--gradient-dark);
+  padding: 130px 0 64px;
+  text-align: center;
+  color: var(--white);
+}
+
+.page-banner h1 {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.page-banner p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.05rem;
+}
+
+
+/* ----------------------------------------------------------
+   ABOUT PAGE PIECES
+   ---------------------------------------------------------- */
+.about-story {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-story p {
+  color: var(--text-gray);
+  font-size: 1.05rem;
+  margin-bottom: 18px;
+}
+
+.mv-card {
+  background: var(--light-bg);
+  border-radius: var(--radius-md);
+  padding: 40px 32px;
+}
+
+.mv-card i {
+  font-size: 1.8rem;
+  color: var(--primary-blue);
+  margin-bottom: 16px;
+}
+
+.mv-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.mv-card p {
+  color: var(--text-gray);
+}
+
+
+/* ----------------------------------------------------------
+   12. CONTACT PAGE PIECES
+   ---------------------------------------------------------- */
+.contact-info-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  text-align: left;
+  padding: 30px 26px;
+}
+
+.contact-info-card .card-icon {
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.contact-info-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+}
+
+.contact-info-card p {
+  color: var(--text-gray);
+  font-size: 0.95rem;
+}
+
+.contact-form-wrap {
+  max-width: 700px;
+  margin: 50px auto 0;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 46px;
+  box-shadow: var(--shadow-md);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  color: var(--text-dark);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  color: var(--text-dark);
+  transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 4px rgba(22, 86, 217, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+.form-success {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  background: #e8f8ee;
+  color: #1b7a3f;
+  border: 1px solid #b6e6c6;
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  margin-top: 20px;
+  font-size: 0.95rem;
+}
+
+.form-success.show {
+  display: flex;
+}
+
+.form-error {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  background: #fdecec;
+  color: #a3231f;
+  border: 1px solid #f5c2c0;
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  margin-top: 20px;
+  font-size: 0.95rem;
+}
+
+.form-error.show {
+  display: flex;
+}
+
+
+/* ----------------------------------------------------------
+   13. ADMIN PAGE PIECES
+   ---------------------------------------------------------- */
+.admin-header {
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+  padding: 16px 0;
+}
+
+.admin-header .navbar {
+  padding: 0 24px;
+}
+
+.admin-header .back-link {
+  font-size: 0.92rem;
+  color: var(--primary-blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.admin-login {
+  min-height: calc(100vh - 74px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-dark);
+  padding: 40px 24px;
+}
+
+.login-box {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 48px 40px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+
+.login-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--white);
+  margin: 0 auto 20px;
+}
+
+.login-box h2 {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+}
+
+.login-box > p {
+  color: var(--text-gray);
+  font-size: 0.92rem;
+  margin-bottom: 26px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.98rem;
+  margin-bottom: 16px;
+}
+
+.login-box input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 4px rgba(22, 86, 217, 0.1);
+}
+
+.error-msg {
+  display: none;
+  color: var(--primary-red);
+  font-size: 0.88rem;
+  margin-top: 14px;
+}
+
+.error-msg.show {
+  display: block;
+}
+
+.admin-dashboard {
+  background: var(--light-bg);
+  min-height: calc(100vh - 74px);
+  padding: 48px 0 80px;
+}
+
+.admin-dashboard.hidden,
+.admin-login.hidden {
+  display: none;
+}
+
+.dashboard-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.dashboard-top h1 {
+  font-size: 1.7rem;
+}
+
+.dashboard-top p {
+  color: var(--text-gray);
+  font-size: 0.95rem;
+}
+
+.btn-logout {
+  background: var(--white);
+  border: 1.5px solid var(--border-color);
+  color: var(--text-dark);
+  padding: 11px 22px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-logout:hover {
+  border-color: var(--primary-red);
+  color: var(--primary-red);
+}
+
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+  margin-bottom: 40px;
+  max-width: 480px;
+}
+
+.dash-stat-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 26px;
+  box-shadow: var(--shadow-sm);
+}
+
+.dash-stat-card i {
+  font-size: 1.3rem;
+  color: var(--primary-blue);
+  margin-bottom: 14px;
+}
+
+.dash-stat-card .num {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.dash-stat-card .label {
+  color: var(--text-gray);
+  font-size: 0.88rem;
+  margin-top: 4px;
+}
+
+.dashboard-panel {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 30px;
+  box-shadow: var(--shadow-sm);
+}
+
+.dashboard-panel h2 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+  text-align: left;
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.92rem;
+}
+
+.dashboard-table th {
+  color: var(--text-gray);
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.admin-note {
+  background: #fff6e5;
+  border: 1px solid #f4dfa0;
+  color: #7a5b00;
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  font-size: 0.88rem;
+  margin-bottom: 30px;
+}
+
+
+/* ----------------------------------------------------------
+   14. FOOTER
+   ---------------------------------------------------------- */
+.site-footer {
+  background: var(--primary-blue-dark);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 70px 0 0;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer-brand .logo-text {
+  color: var(--white);
+}
+
+.footer-brand p {
+  margin-top: 16px;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  max-width: 320px;
+}
+
+.footer-col h4 {
+  color: var(--white);
+  font-size: 1rem;
+  margin-bottom: 18px;
+}
+
+.footer-col ul li {
+  margin-bottom: 12px;
+}
+
+.footer-col ul li a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.92rem;
+  transition: var(--transition);
+}
+
+.footer-col ul li a:hover {
+  color: var(--primary-red-light);
+}
+
+.social-icons {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.social-icons a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.social-icons a:hover {
+  background: var(--gradient-primary);
+  transform: translateY(-3px);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 24px 0;
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+
+/* ----------------------------------------------------------
+   15. SCROLL-REVEAL ANIMATION
+   Elements with class="reveal" fade + rise into view as the
+   user scrolls (see js/script.js for the logic).
+   ---------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ----------------------------------------------------------
+   16. RESPONSIVE RULES
+   ---------------------------------------------------------- */
+@media (max-width: 980px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .dashboard-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 850px) {
+  .nav-links {
+    position: fixed;
+    top: 74px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background: var(--white);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-130%);
+    opacity: 0;
+    transition: var(--transition);
+    padding: 10px 24px;
+  }
+
+  .nav-links.active {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .nav-links li {
+    width: 100%;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 16px 0;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+
+@media (max-width: 700px) {
+  .section { padding: 64px 0; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .dashboard-stats { grid-template-columns: 1fr; }
+  .contact-form-wrap { padding: 30px 22px; }
+  .dashboard-table { display: block; overflow-x: auto; white-space: nowrap; }
+
+  .orbit-container {
+    --orbit-1: 110px;
+    --orbit-2: 160px;
+    --orbit-3: 210px;
+    --orbit-4: 260px;
+    --sun-size: 64px;
+    --planet-size: 34px;
+  }
+
+  .sun { font-size: 1.3rem; }
+  .planet { font-size: 0.95rem; }
+}
+
+
+/* ----------------------------------------------------------
+   14. DASHBOARD MESSAGE ROWS / ACTION BUTTONS
+   ---------------------------------------------------------- */
+.dashboard-table tbody tr.is-unread {
+  background: #f2f7ff;
+  font-weight: 600;
+}
+
+.dashboard-table td:nth-child(4) {
+  cursor: pointer;
+}
+
+.dashboard-table td:nth-child(4):hover {
+  color: var(--primary-blue);
+  text-decoration: underline;
+}
+
+.dash-actions {
+  display: flex;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.dash-btn {
+  background: var(--light-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-dark);
+  transition: var(--transition);
+}
+
+.dash-btn:hover {
+  border-color: var(--primary-blue);
+  color: var(--primary-blue);
+}
+
+.dash-btn.delete-msg:hover {
+  border-color: var(--primary-red);
+  color: var(--primary-red);
+}
+
+
+/* ----------------------------------------------------------
+   15. WHATSAPP FLOATING BUTTON (every page)
+   ---------------------------------------------------------- */
+.whatsapp-float {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 60px;
+  height: 60px;
+  background: #25d366;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+  z-index: 999;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  text-decoration: none;
+  animation: whatsapp-pulse 2.4s ease-in-out infinite;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 26px rgba(37, 211, 102, 0.6);
+}
+
+@keyframes whatsapp-pulse {
+  0%, 100% { box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45); }
+  50% { box-shadow: 0 6px 20px rgba(37, 211, 102, 0.75), 0 0 0 8px rgba(37, 211, 102, 0.12); }
+}
+
+@media (max-width: 640px) {
+  .whatsapp-float {
+    right: 16px;
+    bottom: 16px;
+    width: 54px;
+    height: 54px;
+    font-size: 1.5rem;
+  }
+}
