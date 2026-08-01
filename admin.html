@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | Web World Services</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="icon" type="image/png" href="images/logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- This page is intentionally NOT linked in the main website
+       navigation, and it is blocked from search engines above
+       (meta robots noindex). It only opens for someone who has
+       the direct link and the password below. -->
+
+  <!-- ===================== MINIMAL ADMIN HEADER ===================== -->
+  <header class="admin-header">
+    <nav class="navbar">
+      <a href="index.html" class="logo-link">
+        <img src="images/logo.png" alt="Web World Services logo" class="logo-img">
+        <span class="logo-text">WEB WORLD<br><span>SERVICES</span></span>
+      </a>
+      <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i>&nbsp; Back to Website</a>
+    </nav>
+  </header>
+
+  <!-- ===================== LOGIN SCREEN ===================== -->
+  <div class="admin-login" id="adminLogin">
+    <div class="login-box">
+      <div class="login-icon"><i class="fa-solid fa-lock"></i></div>
+      <h2>Admin Access</h2>
+      <p>Enter the admin password to view the dashboard.</p>
+
+      <input type="password" id="adminPassword" placeholder="Enter password">
+      <button class="btn btn-primary btn-block" id="loginBtn" style="color:#fff;">
+        <i class="fa-solid fa-right-to-bracket"></i> Login
+      </button>
+
+      <p class="error-msg" id="errorMsg">Incorrect password. Please try again.</p>
+    </div>
+  </div>
+
+  <!-- ===================== DASHBOARD (hidden until login) ===================== -->
+  <div class="admin-dashboard hidden" id="adminDashboard">
+    <div class="container">
+
+      <div class="admin-note">
+        <i class="fa-solid fa-circle-info"></i>
+        This dashboard shows live data pulled from your database
+        (data/messages.json) via the server's admin API.
+      </div>
+
+      <div class="dashboard-top">
+        <div>
+          <h1>Welcome back, Admin</h1>
+          <p>Here's what's happening with Web World Services today.</p>
+        </div>
+        <button class="btn-logout" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+      </div>
+
+      <div class="dashboard-stats">
+        <div class="dash-stat-card">
+          <i class="fa-solid fa-envelope-open-text"></i>
+          <div class="num" id="statTotal">—</div>
+          <div class="label">Total Inquiries</div>
+        </div>
+        <div class="dash-stat-card">
+          <i class="fa-solid fa-bell"></i>
+          <div class="num" id="statUnread">—</div>
+          <div class="label">Unread Messages</div>
+        </div>
+      </div>
+
+      <div class="dashboard-panel">
+        <h2>Contact Form Messages</h2>
+        <p id="messagesEmpty" class="hidden" style="color:var(--text-gray); padding:12px 0;">
+          No messages yet — they'll show up here as soon as someone submits the contact form.
+        </p>
+        <table class="dashboard-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Subject</th>
+              <th>Date</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="messagesTableBody">
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
